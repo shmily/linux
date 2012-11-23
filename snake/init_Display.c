@@ -2,6 +2,8 @@
 #include <ncurses.h>
 #include "init_Display.h"
 
+int Line_offset;
+int Col_offset;
 
 static int Check_TermialSize(void);
 
@@ -32,14 +34,14 @@ void Init_Disp()
 	
 	for(i = 0; i < FIX_LINES; i++)
 	{
-		mvaddch(i, LEFT_EDGE, wall);
-		mvaddch(i, RIGHT_EDGE, wall);
+		mvaddch(i+Line_offset, LEFT_EDGE+Col_offset, wall);
+		mvaddch(i+Line_offset, RIGHT_EDGE+Col_offset, wall);
 	}
 	for(j = 0; j < FIX_COLS; j++)
 	{
-		mvaddch(0, j, '=');
-		mvaddch(TOP_ROW, j, wall);
-		mvaddch(BOT_ROW, j, wall);
+		mvaddch(Line_offset-1, j+Col_offset, '=');
+		mvaddch(TOP_ROW+Line_offset, j+Col_offset, wall);
+		mvaddch(BOT_ROW+Line_offset, j+Col_offset, wall);
 	}
 	attroff(A_REVERSE);		/* turn off REVERSE */
 	mvaddstr(1, 2, "Game: snake    version: 1.0    date: 2011/08/22");
@@ -57,5 +59,8 @@ static int Check_TermialSize(void)
 		return -1;
 	}
 	
+	Line_offset = (LINES - FIX_LINES)/2;
+	Col_offset = (COLS - FIX_COLS)/2;
+
 	return 0;	
 }
