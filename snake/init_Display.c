@@ -2,8 +2,7 @@
 #include <ncurses.h>
 #include "init_Display.h"
 
-int Line_offset;
-int Col_offset;
+static struct WindowParameter g_window;
 
 static int Check_TermialSize(void);
 
@@ -34,20 +33,19 @@ void Init_Disp()
 	
 	for(i = 0; i < FIX_LINES; i++)
 	{
-		mvaddch(i+Line_offset, LEFT_EDGE+Col_offset, wall);
-		mvaddch(i+Line_offset, RIGHT_EDGE+Col_offset, wall);
+		mvaddch( i+g_window.TopLeft_y, g_window.TopLeft_x, wall);
+		mvaddch( i+g_window.TopLeft_y, g_window.BottomRight_x, wall);
 	}
 	for(j = 0; j < FIX_COLS; j++)
 	{
-		mvaddch(Line_offset-1, j+Col_offset, '=');
-		mvaddch(TOP_ROW+Line_offset, j+Col_offset, wall);
+		mvaddch(g_window.TopLeft_y-1, j+Col_offset, '=');
 		mvaddch(BOT_ROW+Line_offset, j+Col_offset, wall);
 	}
 	attroff(A_REVERSE);		/* turn off REVERSE */
 	mvaddstr(1, 2, "Game: snake    version: 1.0    date: 2011/08/22");
 	mvaddstr(2, 2, "Author: Dream Fly	Blog: blog.csdn.net/jjzhoujun2010");
 	mvaddstr(3, 2, "Usage: Press 'f' to speed up, 's' to speed down,'q' to quit.");
-    mvaddstr(4, 2, "       Nagivation key controls snake moving.");
+	mvaddstr(4, 2, "       Nagivation key controls snake moving.");
 	refresh();
 }
 
@@ -59,8 +57,14 @@ static int Check_TermialSize(void)
 		return -1;
 	}
 	
-	Line_offset = (LINES - FIX_LINES)/2;
-	Col_offset = (COLS - FIX_COLS)/2;
+	g_window.Line_offset = (LINES - FIX_LINES)/2;
+	g_window.Col_offset = (COLS - FIX_COLS)/2;
+	
+	g_window.TopLeft_x = g_window.Col_offset;
+	g_window.TopLeft_y = g_window.Line_offset;
 
+	g_window.BottomRight_x = FIX_COLS + g_window.Col_offset;
+	g_window.BottomRight_y = FIX_LINES + g_window.Line_offset;
+	
 	return 0;	
 }
