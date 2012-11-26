@@ -11,16 +11,11 @@
 #ifndef _Init_Display_H_
 #define _Init_Display_H_
 
-#define FIX_LINES	20
-#define FIX_COLS	80
+#define FRAME_COLS	48
+#define FRAME_LINES	16
 
-#define TOP_ROW     5           /* top_row */  
-#define BOT_ROW     FIX_LINES - 1  
-#define LEFT_EDGE   0  
-#define RIGHT_EDGE  FIX_COLS - 1
-
-#define FRAME_WIDE	64
-#define FRAME_HIGHT	16
+#define FIX_COLS	(FRAME_COLS + 31)
+#define FIX_LINES	(FRAME_LINES + 6)
 
 struct WindowParameter
 {
@@ -41,7 +36,10 @@ struct WindowParameter
 };
 
 
-void Init_Disp();           /* init and display the interface */
+void 	Init_Disp();           /* init and display the interface */
+void 	Curs_Return(void);
+int 	DrawPoint(int x, int y, char ascii);
+int 	ClearPoint(int x, int y);
 
 
 #endif
