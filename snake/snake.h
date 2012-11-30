@@ -32,4 +32,10 @@ void ClearBody(int x, int y);
 int CreatSnake(void);
 int snake_Move(int direction);
 
+void init_snakeMask(void);
+void set_snakeMask(int x, int y);
+void clear_snakeMask(int x, int y);
+int is_OverSnakeBody(int x, int y);
+
+
 #endif

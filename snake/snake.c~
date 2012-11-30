@@ -170,7 +170,7 @@ int snake_Move(int direction)
 		
 		do{
 			GetFood_xy(&food);
-			is_cover = is_OverSnakeBody(food.x, food.y);
+			is_cover = is_OverSnakeMask(food.x, food.y);
 		}while(is_cover!=0);
 
 		DrawBody(food.x, food.y);
