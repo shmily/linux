@@ -1,0 +1,54 @@
+/*
+=============================================================================
+#
+#        Author : shmily - shmily@mail.dlut.edu.cn
+#            QQ : 723103903
+# Last modified : 2013-04-18 20:47
+#      Filename : Pascal.c
+#   Description : not thing...
+#
+=============================================================================
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <memory.h>
+
+int main( void )
+{
+	int i;
+	unsigned int num;
+	char str[33];
+	int  tmp;
+	char *p;
+
+	int  start = 0;
+
+	memset(str, 0, sizeof(str));
+	scanf("%d", &num);
+
+	tmp = (unsigned int)num&0x00000004;
+
+	/*
+	str[0] = '0';
+	p = str;
+	for(i=0; i<sizeof(int)*8; i++){
+		
+		tmp = (unsigned int)num&0x80000000;
+
+		if(start == 0){
+			if(tmp != 0){
+				start = 1;
+				*p++ = '1'; 
+			}
+		}else{
+			*p++ = (tmp != 0)?'1':'0';
+		}
+
+		num = num << 1;
+	}
+	*/
+
+	printf("%d\n", (tmp!=0)?1:0);
+    return 0;
+}
