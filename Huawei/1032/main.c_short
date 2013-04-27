@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <memory.h>
+
+void InsertSort (int a[],int l)
+{
+int i,j,t;
+for(i=1;i<l;i++){
+  if(a[i]<a[i-1]){
+    t=a[i];
+    for(j=i-1;j>=0&&a[j]>t;j--){
+      a[j+1]=a[j];
+    }
+    a[j+1]=t;
+}}}
+
+int main( void )
+{
+	int i,j;
+	int input[22];
+	int odd[12], even[12];
+	int *p_odd,*p_even;
+
+	memset(odd,0,48);	
+	memset(even,0,48);	
+	for(i=0;i<10;i++){
+		scanf("%d", &input[i]);
+	}
+
+	InsertSort(input,10);
+
+	p_odd=odd;
+	p_even=even;
+	for(i=0;i<10;i++){
+		if(input[i]%2==0) *p_even++ = input[i];
+		else *p_odd++  = input[i];
+	}
+
+	memset(input,0,88);
+	i=0;
+	j=0;	
+	do{
+		input[i++]=odd[j];
+		input[i++]=even[j++];
+	}while((odd[j]!=0)||(even[j]!=0));
+
+	if(input[i-1]==0) i=i-1;
+
+	for(j=0;j<i-1;j++){
+		printf("%d ",input[j]);
+	}
+	printf("%d\n",input[i-1]);
+    return 0;
+}

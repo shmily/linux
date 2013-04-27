@@ -1,5 +1,5 @@
 INCLUDE_FLAGS = -I.
-CFLAGS	     = $(INCLUDE_FLAGS) -O2 -Wall -lm --static -std=c99 -DONLINE_JUDGE
+CFLAGS	     = $(INCLUDE_FLAGS) -O2 -Wall -lm --static -std=c99 -DONLINE_JUDGE -Wno-unused-result
 CC			 = gcc
 
 LFLAGS 		 = 

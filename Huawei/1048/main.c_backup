@@ -5,11 +5,20 @@
 int main(void)
 {
     char str[258];
+
     char *p;
-    int  tmp, s, i;
-    int  max, max_count;
-    int  min, min_index;
-    int  count[10], index[10], rap[10];
+    int  tmp;
+    int  s;
+    int  i;
+    int  count[10];
+    int  index[10];
+
+    int  max;
+    int  max_count;
+    int  rap[10];
+
+    int  min;
+    int  min_index;
 
     memset(str, 0, sizeof(str));
 
@@ -54,6 +63,32 @@ int main(void)
         }
     }
 
-    printf("%d,%d\n", min_index, count[min_index]);
+    for(i=0; i<10; i++){
+        printf("%d ", i);
+    }
+    printf("\n");
+    
+    for(i=0; i<10; i++){
+        printf("%d ", count[i]);
+    }
+    printf("\n");
+    
+    for(i=0; i<10; i++){
+        printf("%d ", index[i]);
+    }
+
+    printf("\n");
+
+    printf("max = %d\n", max);
+
+    for(i=0; i<max_count; i++){ 
+        printf("%d ", rap[i]);
+    }
+    printf("\n");
+
+    printf("min = %d, min_index = %d\n", min, min_index);
+
+
+    printf("count num = %d, count = %d\n", min_index, count[min_index]);
     return 0;
 }
