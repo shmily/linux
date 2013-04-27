@@ -66,13 +66,13 @@ int main(void)
 
 	_ge_input_ip(str, ip);
 	if(ip_valid(ip) == 0){
-		printf("Invalid IP adress.\n");
+		printf("Invalid IP adress.");
 		goto _exit;
 	}
 
 	_ge_input_ip(str, mask);
 	if(mask_valid(mask) == 0){
-		printf("Invalid netmask adress.\n");
+		printf("Invalid netmask adress.");
 		goto _exit;
 	}
 
@@ -86,7 +86,8 @@ int main(void)
 		
 		_ge_input_ip(str, ip);
 		if(ip_valid(ip) == 0){
-			printf("Invalid IP adress.\n");
+			printf("Invalid IP adress.");
+			if(i!=count-1) printf("\n");
 			continue;
 		}
 
@@ -94,9 +95,11 @@ int main(void)
 		tmp = tmp & _mask;
 
 		if(tmp == local){
-			printf("let's rock\n");
+			printf("let's rock");
+			if(i!=count-1) printf("\n");
 		}else{
-			printf("not you\n");	
+			printf("not you");	
+			if(i!=count-1) printf("\n");
 		}
 	}
 
