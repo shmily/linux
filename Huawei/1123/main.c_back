@@ -1,0 +1,110 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <memory.h>
+
+#define MAX_LEN 512
+
+struct student_t{
+    char             num[8];
+    char             name[20];
+    char             phone[20];
+    struct student_t *next;
+};
+
+char *receive;
+
+int cmd_parser(char *cmd, struct student_t *pin)
+{
+    int  cmd_type;
+    char *p, *pend;
+
+    memset(pin, 0, sizeof(struct student_t));
+    memset(receive, 0, MAX_LEN);
+    //scanf(" %[^\n]", receive);
+    gets(receive);
+
+    cmd_type = -1;
+    switch(*receive){
+        case 'I':
+            p = strstr(receive, "INSERT");
+            if(p!=NULL){
+                p = p + strlen("INSERT")+1;
+                pend = strstr(p, ",");
+                if(pend!=NULL){
+                    memcpy(pin->num, p, pend - p);
+                }else{
+                    break;
+                }
+
+                p = pend + 1;
+                pend = strstr(p, ",");
+                if(pend!=NULL){
+                    if((pend-p)>16){
+                        printf("INSERT INVALID NAME LEN!\n");
+                        break;
+                    }
+                    memcpy(pin->name, p, pend-p);
+                }else{
+                    break;
+                }
+
+                p = pend + 1;
+                if(strlen(p)>16){
+                    printf("INSERT INVALID TELNO LEN!\n");
+                    break;
+                }
+                strcpy(pin->phone, p);
+
+                cmd_type = 1;
+            }
+            break;
+        case 'S':
+            p = strstr(receive, "SELECT");
+            if(p!=NULL){
+                if(strlen(receive)>strlen("SELECT")){
+                    p = p + strlen("SELECT") + 1;
+                    strcpy(pin->num, p);
+                }
+                cmd_type = 2;
+            }
+            break;
+        case 'D':
+            p = strstr(receive, "DELETE");
+            if(p!=NULL){
+                p = p + strlen("DELETE")+1;
+                strcpy(pin->num, p);
+                cmd_type = 3;
+            }
+            break;
+        case 'Q':
+            p = strstr(receive, "QUIT");
+            if(p!=NULL){
+                cmd_type = 4;
+            }
+            break;
+        default:
+            break;
+    }
+
+    return cmd_type;
+}
+
+int main(void)
+{
+    struct student_t *pHead;
+    struct student_t temp;
+
+    int cmd_type;
+
+    receive = malloc(MAX_LEN);
+
+    while(1){
+        cmd_type = cmd_parser(NULL,&temp);
+
+
+
+    }
+
+    return 0;
+}

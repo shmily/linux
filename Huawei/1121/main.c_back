@@ -12,6 +12,7 @@ int ip_valid(int *ip)
 		return 0;
 
     t = (*(ip+1)&0xFFFFFF00) + (*(ip+2)&0xFFFFFF00) + (*(ip+3)&0xFFFFFF00);
+	//if( *(ip)>255 || *(ip+1)>255 || *(ip+2)>255 || *(ip+3)>255 )
     if(t>0)
 		return 0;
 
@@ -39,10 +40,16 @@ int mask_valid(int *mask)
 		p++;
 	}
 
-	if(div == -1) return 0;
-	if( div == 0 && (*mask)==0x00 ) return 0;
+	if(div == -1) return 0;	// all mask is 255.
+	if( div == 0 && (*mask)==0x00 ) return 0; // all mask is 0.
 
 	div = *(mask+div);
+
+    /*
+	if ( (div==0x80) || (div==0xC0) || (div==0xE0) || (div==0xF0) ||
+		 (div==0xF8) || (div==0xFC) || (div==0xFE) || (div==0x00) ){
+		return 1;
+	}*/
 
     switch(div){
         case 0x80:
