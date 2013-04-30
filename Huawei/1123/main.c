@@ -198,7 +198,6 @@ void select(struct student_t *p)
 
 void quit(void)
 {
-    int i = 0;
     struct student_t *p;
     free(receive);
 
@@ -206,10 +205,7 @@ void quit(void)
         p = List.next;
         List.next = List.next->next;
         free(p);
-        i++;
     }
-
-    printf("free %d\n",i);
 }
 
 int main(void)

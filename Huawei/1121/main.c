@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <memory.h>
 
 #define _ge_input_ip( _ip) scanf("%d.%d.%d.%d", (_ip), (_ip+1), (_ip+2), (_ip+3))
@@ -20,47 +21,14 @@ int ip_valid(int *ip)
 
 int mask_valid(int *mask)
 {
-	int i;
-	int div;
-	int *p;
+	unsigned int b;
+	b = (unsigned int)*mask;
 
-	div = -1;
-	p = mask;
-	for(i=0; i<4; i++){
-		if(div == -1){
-			if( ((*p)&0xFF) != 0xFF ){
-				div = i;
-			}
-		}else{
-			if( ((*p)|0x00) != 0x00 ){
-				return 0;
-			}
-		}
-		p++;
-	}
+	if((b==0xFFFFFFFF)||(b==0x00)) return 0;
 
-	if(div == -1) return 0;
-	if( div == 0 && (*mask)==0x00 ) return 0;
-
-	div = *(mask+div);
-
-    switch(div){
-        case 0x80:
-        case 0xC0:
-        case 0xE0:
-        case 0xF0:
-        case 0xF8:
-        case 0xFC:
-        case 0xFE:
-        case 0x00:
-            i = 1;
-            break;
-        default:
-            i = 0;
-            break;
-    }
-
-	return i;
+	b = ~b + 1;
+	b = b&(b-1);
+	return (b==0)?1:0;
 }
 
 int main(void)
@@ -75,17 +43,17 @@ int main(void)
 	_ge_input_ip(ip);
 	if(ip_valid(ip) == 0){
 		printf("Invalid IP adress.\n");
-		goto _exit;
+		exit(0);
 	}
+	local = (ip[0]<<24) + (ip[1]<<16) + (ip[2]<<8) + ip[3]; 
 
 	_ge_input_ip(mask);
-	if(mask_valid(mask) == 0){
+	_mask = (mask[0]<<24) + (mask[1]<<16) + (mask[2]<<8) + mask[3]; 
+	if(mask_valid(&_mask) == 0){
 		printf("Invalid netmask adress.\n");
-		goto _exit;
+		exit(0);
 	}
 
-	local = (ip[0]<<24) + (ip[1]<<16) + (ip[2]<<8) + ip[3]; 
-	_mask = (mask[0]<<24) + (mask[1]<<16) + (mask[2]<<8) + mask[3]; 
 	local = local & _mask;
 
 	scanf("%d", &count);
@@ -108,6 +76,5 @@ int main(void)
 		}
 	}
 
-_exit:
-    return 0;
+	exit(0);
 }
