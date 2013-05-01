@@ -1,0 +1,84 @@
+================================================
+E000:Success;
+search result:(module NO=4 state=running)
+================================================
+E000:Success;
+start module:14
+search result:(module NO=4 state=running)
+search result:(module NO=1 state=running)
+================================================
+E000:Success;
+start module:1
+search result:(module NO=4 state=stop)
+search result:(module NO=1 state=running)
+================================================
+E000:Success;
+start module:124
+search result:(module NO=1 state=running)(module NO=2 state=running)(module NO=3 state=stop)(module NO=4 state=running)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:124
+search result:(module NO=1 state=running)(module NO=2 state=running)(module NO=3 state=stop)(module NO=4 state=running)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:134
+search result:(module NO=1 state=running)(module NO=2 state=stop)(module NO=3 state=running)(module NO=4 state=running)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:1345
+search result:(module NO=1 state=running)(module NO=2 state=stop)(module NO=3 state=running)(module NO=4 state=running)(module NO=5 state=running)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:12456
+search result:(module NO=1 state=running)(module NO=2 state=running)(module NO=3 state=stop)(module NO=4 state=running)(module NO=5 state=running)(module NO=6 state=running)
+================================================
+E000:Success;
+start module:124
+search result:(module NO=1 state=running)(module NO=2 state=running)(module NO=3 state=stop)(module NO=4 state=running)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:23
+search result:(module NO=1 state=stop)(module NO=2 state=running)(module NO=3 state=running)(module NO=4 state=stop)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:3
+search result:(module NO=1 state=stop)(module NO=2 state=stop)(module NO=3 state=running)(module NO=4 state=stop)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:3
+start module:124
+================================================
+E000:Success;
+start module:3
+start module:2
+================================================
+E000:Success;
+start module:124
+stop module:41
+search result:(module NO=1 state=stop)(module NO=2 state=running)(module NO=3 state=stop)(module NO=4 state=stop)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:124
+E010:Module already running;
+stop module:421
+search result:(module NO=1 state=stop)(module NO=2 state=stop)(module NO=3 state=stop)(module NO=4 state=stop)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:124
+stop module:4
+search result:(module NO=1 state=running)(module NO=2 state=running)(module NO=3 state=stop)(module NO=4 state=stop)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:1234
+stop module:41
+search result:(module NO=1 state=stop)(module NO=2 state=running)(module NO=3 state=running)(module NO=4 state=stop)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:1234
+stop module:421
+search result:(module NO=1 state=stop)(module NO=2 state=stop)(module NO=3 state=running)(module NO=4 state=stop)(module NO=5 state=stop)(module NO=6 state=stop)
+================================================
+E000:Success;
+start module:1234
+stop module:4321
+search result:(module NO=1 state=stop)(module NO=2 state=stop)(module NO=3 stat
