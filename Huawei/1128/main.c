@@ -18,20 +18,9 @@ int Push	(STACK_STRU *pThis, int nValue);
 int Pop		(STACK_STRU *pThis);
 int IsFull	(STACK_STRU *pThis);
 int IsEmpty	(STACK_STRU *pThis);
-int getStackTop(STACK_STRU *pThis);
-void print_stack(STACK_STRU *pThis);
 
 STACK_STRU g_stOperator;
 STACK_STRU g_stOperand;
-
-typedef enum tag_E_OPERATOR
-{
-	E_OPER_NULL, 	/* N */
-	E_OPER_ADD, 	/* + */
-	E_OPER_SUB, 	/* - */
-	E_OPER_MUL, 	/* X */
-	E_OPER_DIV 		/* / */
-}E_OPERATOR;
 
 //------------------------------------------------
 
@@ -56,7 +45,7 @@ int infix_init(char *pstr, int *postfix, int *mask)
 
     psave = postfix;
     count = 0;
-    tmp = 0;
+    tmp   = 0;
     while(*pstr!='\0'){
 
         if((*pstr>='0')&&(*pstr<='9')){
@@ -70,16 +59,16 @@ int infix_init(char *pstr, int *postfix, int *mask)
             count += 2;
             tmp = 0;
             pstr++;
-        }else if(*pstr==' '){
-            pstr++;
         }else{
-            *psave++ = tmp;
-            *mask++ = 1;
-            count += 1;
             pstr++;
         }
     }
-    
+   
+	*psave++ = tmp;
+	*mask++ = 1;
+	count += 1;
+	pstr++;
+
     *postfix = *postfix * sign;
     return count;
 }
@@ -124,7 +113,9 @@ void infix2posfix(int *postfix, int *mask, int count)
                     }
                 }
 
-                if(IsEmpty(&g_stOperator)==1) Push(&g_stOperator, *psource);
+                if(IsEmpty(&g_stOperator)==1){
+					Push(&g_stOperator, *psource);
+				}
             }
         }
 
@@ -136,12 +127,6 @@ void infix2posfix(int *postfix, int *mask, int count)
         *pmask++ = 0;
     }
 
-/*
-    for(i=0; i<count; i++){
-        if(flag[i]==0) printf("%c", buff[i]);
-        else printf("%d", buff[i]);
-    }
-*/
     memcpy(postfix, buff, sizeof(int)*32);
     memcpy(mask,    flag, sizeof(int)*32);
 }
@@ -183,25 +168,21 @@ int postfix_calu(int *postfix, int *mask, int count)
 
 int main()
 {
-	char str[512];
-    int postfix[32];
-    int mask[32];
-    int count, i;
+	char 	str[512];
+    int 	postfix[32];
+    int 	mask[32];
+    int		count, i;
 
-	fgets(str, 512, stdin);
+	gets(str);
     count = infix_init(str, postfix, mask);
     infix2posfix(postfix, mask, count);
+	
+	i = postfix_calu(postfix, mask, count);
 
-    for(i=0; i<count; i++){
-        if(mask[i]==1) printf("%d", postfix[i]);
-        else printf("%c", postfix[i]);
-    }
-	printf("\n");
+	printf("%d\n", i);
 
-     i = postfix_calu(postfix, mask, count);
-
-     printf("%d\n", i);
-
+	Destory(&g_stOperand);
+	Destory(&g_stOperator);
 	return 0;
 }
 
@@ -224,84 +205,27 @@ int Init(STACK_STRU *pThis,int nMaxSize)
 
 int Push(STACK_STRU *pThis,int nValue)
 {
-	if(NULL == pThis){
-		return -1;
-	}
-	
-	if(IsFull(pThis)!=0){
-		return -1;
-	}
-	
 	pThis->pNStackBuf[++(pThis->nStackTop)] = nValue; 
-	
 	return 0;
 }
 
 int Pop(STACK_STRU *pThis)
 {
-	if(NULL == pThis){
-		return -1;
-	}
-
-	if(IsEmpty(pThis)!=0){
-		return -1;
-	}
-	
 	return pThis->pNStackBuf[pThis->nStackTop--];
-}
-
-int getStackTop(STACK_STRU *pThis)
-{
-    if(NULL == pThis){
-		return -1;
-	}
-
-	if(IsEmpty(pThis)!=0){
-		return -1;
-	}
-	
-	return pThis->pNStackBuf[pThis->nStackTop];
 }
 
 int IsFull(STACK_STRU *pThis)
 {
-	if(NULL == pThis){
-		return -1;
-	}
-
 	return (pThis->nMaxStackTop == pThis->nStackTop)?1:0;
 }
 
 int IsEmpty(STACK_STRU *pThis)
 {
-	if(NULL == pThis){
-		return -1;
-	}
-
 	return (pThis->nStackTop == -1)?1:0; 
 }
 
 int Destory(STACK_STRU *pThis)
 {
-	if (NULL == pThis){
-		return -1;
-	}
-	
 	free(pThis->pNStackBuf);
 	return 0;
-}
-
-void print_stack(STACK_STRU *pThis)
-{
-    int i;
-
-    if(pThis->nStackTop<0){
-        printf(".\n");
-        return;
-    }
-
-    for(i=0; i<=pThis->nStackTop; i++){
-        printf("%c", pThis->pNStackBuf[i]);
-    }
-    printf("\n");
 }
